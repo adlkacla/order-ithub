@@ -1,0 +1,6 @@
+src/OrderHub/bin/
+src/OrderHub/obj/
+.vs
+*.bin
+*.exe
+*.dll
