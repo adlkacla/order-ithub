@@ -22,6 +22,13 @@
             service.CreateOrder("Петрова", "Монитор", 18990m));
         service.PlaceOrderAfterCurrent(service.CreateOrder("Иванов1", "Клавиа1тура", 5490m));
         
+        service.TryFindOrder("Иванов", out var found);
+        Console.WriteLine($"Result: {found}");
+        
+        if(!service.TryFindOrder("Нет такого", out _))
+            Console.WriteLine("PASS");
+
+
         Console.WriteLine("\n\n\n");
         var warehouse = new WarehouseService();
         warehouse.Receive("Клавиатура", 10);
