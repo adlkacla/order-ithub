@@ -6,6 +6,9 @@ public class OrderService
     Queue<Order> pendingQueue = new();
     Stack<string> undoHistory = new();
 
+    LinkedList<Order> orderHistory = new();
+    LinkedListNode<Order>? current = null;
+
     public Order CreateOrder(string customerName, string productName, decimal price)
     {
         int id = 0;
@@ -44,6 +47,7 @@ public class OrderService
         return true;
     }
 
+    #region PRINT
     public void PrintAllOrders()
     {
         foreach(Order order in allOrders)
@@ -67,4 +71,41 @@ public class OrderService
         }
     }
 
+    public void PrintHistory()
+    {
+        foreach(Order val in orderHistory)
+        {
+            Console.WriteLine(val.ToString());
+        }
+    }
+    #endregion
+
+    public void InitHistory(params Order[] orders)
+    {
+        orderHistory.Clear();
+        foreach(var order in orders)
+        {
+            orderHistory.AddLast(order); 
+            //не сохранять, слишком много операций записи в память может быть
+        }
+        current = orderHistory.Last;
+    }
+
+    public bool PlaceOrderAfterCurrent(Order order)
+    {
+        if(current==null)
+        {
+            orderHistory.AddLast(order);
+            current = orderHistory.Last;
+            return true;
+        }
+        current = orderHistory.AddAfter(current, order);
+        return true;
+    }
+
+    public bool TryFindOrder(string customerName, out Order? order)
+    {
+        order = allOrders.Find(ord => ord.CustomerName==customerName);
+        return order == null ? false:true ;
+    }
 }

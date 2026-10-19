@@ -14,5 +14,10 @@
         service.PrintAllOrders();
         service.PrintPendingQueue();
         service.PrintRecentActions();
+
+        service.InitHistory(
+            service.CreateOrder("Иванов", "Клавиатура", 5490m),
+            service.CreateOrder("Петрова", "Монитор", 18990m));
+        service.PlaceOrderAfterCurrent(service.CreateOrder("Иванов1", "Клавиа1тура", 5490m));
     }
 }
