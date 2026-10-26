@@ -1,4 +1,6 @@
-﻿public class Program
+﻿using OrderHub.Services;
+
+public class Program
 {
     public static void Main()
     {
@@ -38,5 +40,23 @@
         warehouse.Sell("Монитор", 99);
         warehouse.Sell("Проектор", 1);
         warehouse.PrintStock();
+
+        Console.WriteLine("\n\n\n");
+        var reports = new ReportService();
+        var products = new List<Product>() { 
+            new Product("a",11,"none"),
+            new Product("b",12,"none"),
+            new Product("c",13,"none")
+        };
+        const decimal threshold = 15000m;
+        var list = reports.ExpensiveProducts(products, threshold);
+        foreach (string line in list)
+        Console.WriteLine(line);
+        Console.WriteLine(reports.CountExpensive(products, threshold));
+        Console.WriteLine(reports.HasVeryExpensive(products, 50000m));
+        Console.WriteLine(reports.AllInStock(products));
+        Console.WriteLine(reports.Cheapest(products));
+        // ЗАДАЧА: измените порог в threshold на 15000m и запустите заново,
+        // покажите, что изменилось только условие, а весь остальной код остался прежним
     }
 }
