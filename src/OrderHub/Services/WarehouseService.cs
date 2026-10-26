@@ -30,8 +30,6 @@
         // ЗАДАЧА 4: если остаток стал равен нулю — удалите запись через Remove
         // и сообщите, что товар снят с учёта
         // ЗАДАЧА 5: верните true
-
-
         if (!stock.TryGetValue(productName, out int availableQuantity)||availableQuantity<quantity)
         {
             Console.WriteLine($"Нет товара {productName} в количестве {quantity} на складе");
