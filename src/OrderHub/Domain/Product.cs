@@ -1,8 +1,8 @@
 ﻿public class Product : IComparable<Product>
 {
-    public string Name { get; set; } = "";
-    public decimal Price { get; set; }
-    public string Category { get; set; } = "";
+    public string Name { get; private set; } = "";
+    public decimal Price { get; private set; }
+    public string Category { get; private set; } = "";
 
     // ЗАДАЧА: объявите конструктор с параметрами Name, Price, Category
     // ЗАДАЧА: переопределите свойства, чтобы они были только для чтения(private set)

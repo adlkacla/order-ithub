@@ -32,6 +32,7 @@ public class CatalogService
         // это делегат Comparison<Product>
         // ЗАДАЧА: выведите результат и поясните в консоли, что тип Product не менялся
         products.Sort((a,b)=> a.Name.Length.CompareTo(b.Name.Length));
+        Console.WriteLine("Тип Product не менялся — сортировка задана лямбдой Comparison<Product>");
         foreach (var product in products)
             Console.WriteLine($"{product.Name} ({product.Category}) - {product.Price}р");
     }

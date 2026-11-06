@@ -13,10 +13,10 @@
         // ЗАДАЧА 3: если товара нет — добавьте новую запись через индексатор
         // ЗАДАЧА 4: выведите итоговое количество товара на складе
 
-        if (stock.ContainsKey(productName))
-            stock[productName] += quantity;
+        if (stock.TryGetValue(productName, out int existing))
+            stock[productName] = existing + quantity;
         else
-            stock.Add(productName, quantity);
+            stock[productName] = quantity;
 
         Console.WriteLine($"Товара {productName} на складе {stock[productName]}");
     }
@@ -30,14 +30,20 @@
         // ЗАДАЧА 4: если остаток стал равен нулю — удалите запись через Remove
         // и сообщите, что товар снят с учёта
         // ЗАДАЧА 5: верните true
-        if (!stock.TryGetValue(productName, out int availableQuantity)||availableQuantity<quantity)
+        if (!stock.TryGetValue(productName, out int availableQuantity))
         {
-            Console.WriteLine($"Нет товара {productName} в количестве {quantity} на складе");
+            Console.WriteLine($"Товара {productName} нет на складе");
             return false;
         }
+        if (availableQuantity < quantity)
+        {
+            Console.WriteLine($"Товара {productName} недостаточно: на складе {availableQuantity}, нужно {quantity}");
+            return false;
+        }
+
         stock[productName] -= quantity;
-        if (quantity == availableQuantity)
-            stock.Remove(productName);
+        if (stock[productName] == 0 && stock.Remove(productName))
+            Console.WriteLine($"Товар {productName} снят с учёта");
 
         return true;
     }

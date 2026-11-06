@@ -63,10 +63,10 @@ public class OrderService
         // ЗАДАЧА 1: если undoHistory пуст — верните false
         // ЗАДАЧА 2: извлеките последнее действие методом Pop
         // ЗАДАЧА 3: выведите $"Отменено действие: {action}" и верните true
-        if (undoHistory==null) return false;
+        if (undoHistory.Count == 0) return false;
         
         string action = undoHistory.Pop();
-        Console.WriteLine($"Отменено действие: \"{action}\"");
+        Console.WriteLine($"Отменено действие: {action}");
         
         return true;
     }
@@ -108,6 +108,8 @@ public class OrderService
         {
             Console.WriteLine(val.ToString());
         }
+
+        Console.WriteLine($"Текущий заказ: {current?.Value}");
     }
     #endregion
 
